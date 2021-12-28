@@ -68,4 +68,8 @@ public class Cart {
     public void setIsOrdered(boolean readyToOrder) {
         this.isOrdered = readyToOrder;
     }
+
+    public boolean isOrdered() {
+        return isOrdered;
+    }
 }
