@@ -1,12 +1,23 @@
 package com.example.serveripwcr.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "order")
 public class Order {
-    private Long OrderNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_nr")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "cart", referencedColumnName = "cart_nr")
     private Cart cart;
+    @Column(name = "completed")
     private boolean isCompleted;
 
     public Order(Long orderNumber, Cart cart, boolean isCompleted) {
-        OrderNumber = orderNumber;
+        id = orderNumber;
         this.cart = cart;
         this.isCompleted = isCompleted;
     }
@@ -14,12 +25,12 @@ public class Order {
     public Order() {
     }
 
-    public Long getOrderNumber() {
-        return OrderNumber;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderNumber(Long orderNumber) {
-        OrderNumber = orderNumber;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Cart getCart() {

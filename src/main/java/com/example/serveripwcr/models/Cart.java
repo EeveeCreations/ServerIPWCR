@@ -1,20 +1,29 @@
 package com.example.serveripwcr.models;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "cart")
 public class Cart {
-    private  Long cartNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_nr")
+    private  Long id;
     private int amountOfProducts;
+    @OneToMany(targetEntity = CartItem.class)
     private List<Product> products;
+    @Column(name = "total_price")
     private float totalPrice;
-    private boolean readyToOrder;
+    @Column(name = "ordered")
+    private boolean isOrdered;
 
-    public Cart(Long cartNumber, int amountOfProducts, List<Product> products, float totalPrice, boolean readyToOrder) {
-        this.cartNumber = cartNumber;
+    public Cart(Long id, int amountOfProducts, List<Product> products, float totalPrice, boolean isOrdered) {
+        this.id = id;
         this.amountOfProducts = amountOfProducts;
         this.products = products;
         this.totalPrice = totalPrice;
-        this.readyToOrder = readyToOrder;
+        this.isOrdered = isOrdered;
     }
 
     public Cart() {
@@ -28,12 +37,12 @@ public class Cart {
         this.products = products;
     }
 
-    public Long getCartNumber() {
-        return cartNumber;
+    public Long getId() {
+        return id;
     }
 
-    public void setCartNumber(Long cartNumber) {
-        this.cartNumber = cartNumber;
+    public void setId(Long cartNumber) {
+        this.id = cartNumber;
     }
 
     public int getAmountOfProducts() {
@@ -52,11 +61,11 @@ public class Cart {
         this.totalPrice = totalPrice;
     }
 
-    public boolean isReadyToOrder() {
-        return readyToOrder;
+    public boolean isIsOrdered() {
+        return isOrdered;
     }
 
-    public void setReadyToOrder(boolean readyToOrder) {
-        this.readyToOrder = readyToOrder;
+    public void setIsOrdered(boolean readyToOrder) {
+        this.isOrdered = readyToOrder;
     }
 }

@@ -1,20 +1,29 @@
 package com.example.serveripwcr.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "product")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_nr")
     private long productNumber;
     private String name;
     private String description;
     private int price;
-    private int amountInStorage;
-    private boolean isSoldOut;
 
-    public Product(long productNumber, String name, String description, int price, int amountInStorage, boolean isSoldOut) {
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "storage", referencedColumnName = "product_nr")
+    private Storage storage;
+
+
+    public Product(long productNumber, String name, String description, int price, Storage storage) {
         this.productNumber = productNumber;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.amountInStorage = amountInStorage;
-        this.isSoldOut = isSoldOut;
+        this.storage = storage;
     }
 
     public Product() {
@@ -52,19 +61,11 @@ public class Product {
         this.price = price;
     }
 
-    public int getAmountInStorage() {
-        return amountInStorage;
+    public Storage getStorage() {
+        return storage;
     }
 
-    public void setAmountInStorage(int amountInStorage) {
-        this.amountInStorage = amountInStorage;
-    }
-
-    public boolean isSoldOut() {
-        return isSoldOut;
-    }
-
-    public void setSoldOut(boolean soldOut) {
-        isSoldOut = soldOut;
+    public void setStorage(Storage storage) {
+        this.storage = storage;
     }
 }

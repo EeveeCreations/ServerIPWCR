@@ -1,4 +1,7 @@
 package com.example.serveripwcr.repositorys;
 
-public class ProductRepository {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductRepository {
 }

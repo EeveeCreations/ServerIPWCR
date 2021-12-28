@@ -1,4 +1,7 @@
 package com.example.serveripwcr.repositorys;
 
-public class PresentRepository {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PresentRepository {
 }

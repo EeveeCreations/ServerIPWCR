@@ -1,4 +1,7 @@
 package com.example.serveripwcr.repositorys;
 
-public class CartRepostory {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CartRepostory {
 }

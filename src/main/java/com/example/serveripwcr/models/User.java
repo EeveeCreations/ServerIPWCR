@@ -1,21 +1,27 @@
 package com.example.serveripwcr.models;
 
-//@Entity
-//@Table('user')
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     private String name;
     private String passcode;
+    private boolean isAdmin;
 
-    public User(Long id, String name, String passcode) {
+    public User(Long id, String name, String passcode,boolean isAdmin) {
         this.id = id;
         this.name = name;
         this.passcode = passcode;
+        this.isAdmin = isAdmin;
     }
 
     public User() {
     }
-
     public Long getId() {
         return id;
     }
@@ -38,5 +44,13 @@ public class User {
 
     public void setPasscode(String passcode) {
         this.passcode = passcode;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }
