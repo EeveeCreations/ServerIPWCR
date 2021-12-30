@@ -13,13 +13,20 @@ public class User {
     private String passcode;
     private boolean isAdmin;
 
-    public User(Long id, String name, String passcode,boolean isAdmin) {
+
+
+    public User(Long id, String name, String passcode, boolean isAdmin) {
         this.id = id;
         this.name = name;
         this.passcode = passcode;
         this.isAdmin = isAdmin;
     }
 
+    public User(String name, String passcode, boolean isAdmin) {
+        this.name = name;
+        this.passcode = passcode;
+        this.isAdmin = isAdmin;
+    }
     public User() {
     }
     public Long getId() {

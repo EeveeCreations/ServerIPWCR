@@ -21,6 +21,12 @@ public class Storage {
         this.isSoldOut = isSoldOut;
     }
 
+    public Storage(Product product, int amount, boolean isSoldOut) {
+        this.product = product;
+        this.amount = amount;
+        this.isSoldOut = isSoldOut;
+    }
+
     public Storage() {
     }
 

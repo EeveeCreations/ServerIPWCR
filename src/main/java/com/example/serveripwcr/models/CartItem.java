@@ -20,6 +20,11 @@ public class CartItem {
         this.amount = amount;
     }
 
+    public CartItem(Product productNr, int amount) {
+        this.productNr = productNr;
+        this.amount = amount;
+    }
+
     public CartItem() {
     }
 

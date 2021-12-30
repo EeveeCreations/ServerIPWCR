@@ -12,17 +12,30 @@ public class Product {
     private String name;
     private String description;
     private int price;
+    private String category;
+    private String imagePath;
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "storage", referencedColumnName = "product_nr")
     private Storage storage;
 
-
-    public Product(long productNumber, String name, String description, int price, Storage storage) {
+    public Product(long productNumber, String name, String description,
+                   int price, String category, String imagePath, Storage storage) {
         this.productNumber = productNumber;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.category = category;
+        this.imagePath = imagePath;
+        this.storage = storage;
+    }
+
+    public Product(String name, String description, int price, String category, String imagePath, Storage storage) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.imagePath = imagePath;
         this.storage = storage;
     }
 
@@ -59,6 +72,22 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Storage getStorage() {

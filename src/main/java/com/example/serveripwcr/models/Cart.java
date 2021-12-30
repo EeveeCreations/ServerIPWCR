@@ -26,6 +26,13 @@ public class Cart {
         this.isOrdered = isOrdered;
     }
 
+    public Cart(int amountOfProducts, List<Product> products, float totalPrice, boolean isOrdered) {
+        this.amountOfProducts = amountOfProducts;
+        this.products = products;
+        this.totalPrice = totalPrice;
+        this.isOrdered = isOrdered;
+    }
+
     public Cart() {
     }
 

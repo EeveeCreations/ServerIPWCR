@@ -9,7 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-        (exclude = {DataSourceAutoConfiguration.class })
+        (exclude = {DataSourceAutoConfiguration.class }, scanBasePackages= {
+                "com.example.serveripwcr", "com.example.serverIpwcrApplication"})
 public class ServerIpwcrApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

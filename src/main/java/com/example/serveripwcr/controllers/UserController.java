@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 public class UserController {
+
     @Autowired
     public final UserDAO userDAO;
 

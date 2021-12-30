@@ -22,6 +22,11 @@ public class Order {
         this.isCompleted = isCompleted;
     }
 
+    public Order(Cart cart, boolean isCompleted) {
+        this.cart = cart;
+        this.isCompleted = isCompleted;
+    }
+
     public Order() {
     }
 
