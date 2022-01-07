@@ -1,7 +1,7 @@
-package com.example.serveripwcr.daos;
+package nl.ipwcr.server.daos;
 
-import com.example.serveripwcr.models.CartItem;
-import com.example.serveripwcr.repositorys.CartItemRepository;
+import nl.ipwcr.server.models.CartItem;
+import nl.ipwcr.server.repositorys.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

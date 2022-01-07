@@ -14,9 +14,8 @@ public class Product {
     private int price;
     private String category;
     private String imagePath;
-
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "product_nr", referencedColumnName = "product_nr")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "storage")
     private Storage storage;
 
     public Product(long productNumber, String name, String description,

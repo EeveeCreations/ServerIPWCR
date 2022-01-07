@@ -11,21 +11,21 @@ public class User {
     private Long id;
     private String name;
     private String passcode;
-    private boolean isAdmin;
+    private boolean admin;
 
 
 
-    public User(Long id, String name, String passcode, boolean isAdmin) {
+    public User(Long id, String name, String passcode, boolean admin) {
         this.id = id;
         this.name = name;
         this.passcode = passcode;
-        this.isAdmin = isAdmin;
+        this.admin = admin;
     }
 
-    public User(String name, String passcode, boolean isAdmin) {
+    public User(String name, String passcode, boolean admin) {
         this.name = name;
         this.passcode = passcode;
-        this.isAdmin = isAdmin;
+        this.admin = admin;
     }
     public User() {
     }
@@ -54,10 +54,10 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 }

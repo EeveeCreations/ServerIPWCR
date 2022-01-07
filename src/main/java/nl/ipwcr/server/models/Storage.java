@@ -8,7 +8,7 @@ public class Storage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne(mappedBy = "storage", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "storage")
     private Product product;
     private int amount;
     @Column(name = "sold_out")

@@ -1,13 +1,11 @@
-package com.example.serveripwcr.controllers;
+package nl.ipwcr.server.controllers;
 
-import com.example.serveripwcr.daos.CartItemDAO;
-import com.example.serveripwcr.daos.ProductDAO;
-import com.example.serveripwcr.models.CartItem;
-import com.example.serveripwcr.models.Product;
+import nl.ipwcr.server.daos.CartItemDAO;
+import nl.ipwcr.server.daos.ProductDAO;
+import nl.ipwcr.server.models.CartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,7 +38,8 @@ public class CartItemController {
         return cartItemDAO.getByIdOptional(id)
                 .map(cartItem -> {
                     cartItem.setAmount(editCartItem.getAmount());
-                    cartItem.setProductNr(editCartItem.getProductNr());
+                    cartItem.setProduct(editCartItem.getProduct());
+                    cartItem.setCart(editCartItem.getCart());
                     return cartItemDAO.addCartItem(cartItem);
                 })
                 .orElseThrow(() -> new Exception(
