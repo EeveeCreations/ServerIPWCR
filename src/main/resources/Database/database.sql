@@ -34,3 +34,4 @@ INSERT INTO storage(product_nr,amount,sold_out) VALUES(43,23,false);
 --Order
 
 --user
+INSERT INTO user(id,name,passcode,admin) VALUES(1,'Eevee','7004',true);
