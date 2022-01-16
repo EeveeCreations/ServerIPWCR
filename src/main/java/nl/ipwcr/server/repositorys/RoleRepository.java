@@ -1,9 +1,9 @@
 package nl.ipwcr.server.repositorys;
 
-import nl.ipwcr.server.models.User;
+import nl.ipwcr.server.models.UserRole;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface RoleRepository extends CrudRepository<UserRole,Long> {
 }

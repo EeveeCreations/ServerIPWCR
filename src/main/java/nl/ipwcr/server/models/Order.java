@@ -3,7 +3,7 @@ package nl.ipwcr.server.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order_")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

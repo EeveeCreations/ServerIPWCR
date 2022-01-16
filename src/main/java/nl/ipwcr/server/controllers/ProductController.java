@@ -36,7 +36,7 @@ public class ProductController {
                     product.setPrice(editProduct.getPrice());
                     product.setCategory(editProduct.getCategory());
                     product.setImagePath(editProduct.getImagePath());
-                    product.setStorage(editProduct.getStorage());
+//                    product.setStorage(editProduct.getStorage());
                     return productDAO.addProduct(product);
                 })
                 .orElseThrow(() -> new Exception(

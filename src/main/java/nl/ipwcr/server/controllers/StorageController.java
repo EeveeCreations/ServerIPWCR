@@ -32,7 +32,7 @@ public class StorageController {
         return storageDAO.getByIdOptional(id)
                 .map(storage -> {
                     storage.setAmount(editStorage.getAmount());
-                    storage.setProduct(editStorage.getProduct());
+//                    storage.setProduct(editStorage.getProduct());
                     storage.setSoldOut(editStorage.isSoldOut());
 
                     return storageDAO.addStorage(storage);
