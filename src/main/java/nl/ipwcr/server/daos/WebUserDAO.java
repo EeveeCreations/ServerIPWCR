@@ -3,7 +3,7 @@ package nl.ipwcr.server.daos;
 import lombok.extern.slf4j.Slf4j;
 import nl.ipwcr.server.models.UserRole;
 import nl.ipwcr.server.models.WebUser;
-import nl.ipwcr.server.repositorys.RoleRepository;
+import nl.ipwcr.server.repositorys.UserRoleRepository;
 import nl.ipwcr.server.repositorys.WebUserRepository;
 import nl.ipwcr.server.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class WebUserDAO implements UserDetailsService, UserServices {
     private WebUserRepository webUserRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private UserRoleRepository userRoleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -82,13 +82,13 @@ public class WebUserDAO implements UserDetailsService, UserServices {
 
     @Override
     public UserRole addRole(UserRole userRole) {
-       return roleRepository.save(userRole);
+       return userRoleRepository.save(userRole);
     }
 
     @Override
     public void addRoleToUser(Long id, Long roleId) {
         WebUser user = getById(id);
-        Optional<UserRole> role = roleRepository.findById(roleId);
+        Optional<UserRole> role = userRoleRepository.findById(roleId);
         role.ifPresent(userRole -> user.getRoles().add(userRole));
 
     }

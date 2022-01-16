@@ -50,8 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT,"/product/**").hasAnyAuthority("ADMIN");
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE,"/product/**").hasAnyAuthority("ADMIN");
 
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/order/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/cartItem/**").hasAnyAuthority("ADMIN");
+        httpSecurity.authorizeRequests().antMatchers("/order/**").hasAnyAuthority("ADMIN");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/order/{:id}").hasAnyAuthority("CLIENT");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/cart/**").hasAnyAuthority("CLIENT");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/cart/**").hasAnyAuthority("ADMIN");
+//        httpSecurity.authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ADMIN");
 
         httpSecurity.authorizeRequests().anyRequest().permitAll();
     }

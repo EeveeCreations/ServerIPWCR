@@ -1,6 +1,9 @@
 package nl.ipwcr.server;
 
+import nl.ipwcr.server.models.UserRole;
+import nl.ipwcr.server.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -29,6 +32,14 @@ public class ServerIpwcrApplication extends SpringBootServletInitializer {
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    CommandLineRunner runner(UserServices userServices){
+        return args -> {
+//            userServices.addRole(new UserRole(null,"OWNER"));
+//            userServices.addRole(new UserRole(null,"HACKER"));
+        };
+
     }
 
 

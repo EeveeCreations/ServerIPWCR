@@ -14,7 +14,6 @@ public class WebUser {
     private String email;
     private String passcode;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name ="id")
     private Collection<UserRole> roles = new ArrayList<>();
 
     public WebUser(Long id, String name, String email, String passcode, Collection<UserRole> roles) {
