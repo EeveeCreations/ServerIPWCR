@@ -11,5 +11,5 @@ public interface UserServices {
     void addRoleToUser(Long id, Long roleId);
     WebUser getById(Long id);
     List<WebUser> getAll();
-
+    WebUser getByName(String userName);
 }

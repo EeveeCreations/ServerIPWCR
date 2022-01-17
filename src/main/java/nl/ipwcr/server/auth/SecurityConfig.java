@@ -34,8 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-//        TODO: Put these to Admin only for some WRITE DELETE AND UPDATE
-
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
         httpSecurity.csrf().disable();
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -47,28 +45,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private void setNeededAuthorisation(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/product/all").permitAll();
+        httpSecurity.authorizeRequests().antMatchers("/auth/login").permitAll();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/auth/register").permitAll();
+        httpSecurity.authorizeRequests().antMatchers("/auth/token/refresh/**").permitAll();
+        httpSecurity.authorizeRequests().antMatchers("/auth/all").hasAnyAuthority("ADMIN");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/product/all").permitAll();
 
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/product/{:id}").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/product/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT,"/product/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE,"/product/**").hasAnyAuthority("ADMIN");
-
+        httpSecurity.authorizeRequests().antMatchers("/product/**").hasAnyAuthority("ADMIN");
         httpSecurity.authorizeRequests().antMatchers("/order/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/order/{id}").hasAnyAuthority("CLIENT");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/cart/**").hasAnyAuthority("CLIENT");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/cart/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers("/auth/user/**").hasAnyAuthority("ADMIN");
+        httpSecurity.authorizeRequests().antMatchers("/cart/**").hasAnyAuthority("ADMIN");
 
-        httpSecurity.authorizeRequests().anyRequest().permitAll();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/order/{id}").hasAnyAuthority("CLIENT");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/cart/**").hasAnyAuthority("CLIENT");
     }
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        return  super.authenticationManagerBean();
-
+        return super.authenticationManagerBean();
     }
 
 }

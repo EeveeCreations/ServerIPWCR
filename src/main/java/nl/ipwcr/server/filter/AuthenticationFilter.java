@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private static final String HASHED_ALOGORITHEM = "EeveeCreation";
+    public static final String HASHED_ALOGORITHEM = "EeveeCreation";
     private final int MINUTES_OF_VALIDATION = 10;
     private final int REFRESH_OF_VALIDATION = 120;
     private final int MILISECONDS_TO_SECONDS = 1000;
@@ -45,23 +46,24 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authentication) throws IOException, ServletException {
-        WebUser user = (WebUser) authentication.getPrincipal();
-//        TODO: CHange "secret" To a HAshed Value to be more secure
+        User user = (User) authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256(HASHED_ALOGORITHEM.getBytes());
         String accessToken = JWT.create()
-                .withSubject(user.getName())
+                .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + MINUTES_OF_VALIDATION * A_MINUTE * MILISECONDS_TO_SECONDS))
-                .withClaim("roles", user.getRoles().stream()
-//                        .map(GrantedAuthority::getAuthority)
-                        .map(UserRole::getRoleName)
+                .withClaim("roles", user
+                                .getAuthorities()
+                        .stream()
+                        .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList()))
                 .sign(algorithm);
 
         String RefreshToken = JWT.create()
-                .withSubject(user.getName())
+                .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + REFRESH_OF_VALIDATION * A_MINUTE * MILISECONDS_TO_SECONDS))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
+
         Map<String,String> tokens = new HashMap<>();
         tokens.put("accessToken",accessToken);
         tokens.put("refreshToken",RefreshToken);

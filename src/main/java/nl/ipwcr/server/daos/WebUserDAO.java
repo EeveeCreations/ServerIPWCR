@@ -58,6 +58,11 @@ public class WebUserDAO implements UserDetailsService, UserServices {
     }
 
     @Override
+    public WebUser getByName(String userName) {
+        return webUserRepository.findByName(userName);
+    }
+
+    @Override
     public WebUser getById(Long id) {
         Optional<WebUser> optionalUser = webUserRepository.findById(id);
         if (optionalUser.isEmpty()) {
