@@ -45,10 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private void setNeededAuthorisation(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/auth/login").permitAll();
+        httpSecurity.authorizeRequests().antMatchers("/login").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/auth/register").permitAll();
-        httpSecurity.authorizeRequests().antMatchers("/auth/token/refresh/**").permitAll();
-        httpSecurity.authorizeRequests().antMatchers("/auth/all").hasAnyAuthority("ADMIN");
+//        httpSecurity.authorizeRequests().antMatchers("/auth/token/refresh/**").permitAll();
+//        httpSecurity.authorizeRequests().antMatchers("/auth/all").hasAnyAuthority("ADMIN");
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/product/all").permitAll();
 
         httpSecurity.authorizeRequests().antMatchers("/product/**").hasAnyAuthority("ADMIN");

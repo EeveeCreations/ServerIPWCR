@@ -40,7 +40,7 @@ public class WebUserDAO implements UserDetailsService, UserServices {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         WebUser user = webUserRepository.findByName(username);
         if (user == null) {
-            log.error("USer not found");
+            log.error("User not found");
             throw new UsernameNotFoundException("USer not found in DB");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();

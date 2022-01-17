@@ -1,6 +1,7 @@
 package nl.ipwcr.server;
 
 import nl.ipwcr.server.models.UserRole;
+import nl.ipwcr.server.models.WebUser;
 import nl.ipwcr.server.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -36,6 +37,12 @@ public class ServerIpwcrApplication extends SpringBootServletInitializer {
     @Bean
     CommandLineRunner runner(UserServices userServices){
         return args -> {
+            userServices.addUser(new WebUser("Eevee","s1126086@student.hsleiden.nl","root112",null));
+            userServices.addRoleToUser(4L,1L);
+            userServices.addRoleToUser(4L,2L);
+            userServices.addRoleToUser(4L,3L);
+
+
 //            userServices.addRole(new UserRole(null,"OWNER"));
 //            userServices.addRole(new UserRole(null,"HACKER"));
         };
