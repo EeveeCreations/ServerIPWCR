@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/order")
 @RestController
 public class OrderController {
     @Autowired
@@ -16,17 +17,17 @@ public class OrderController {
         this.orderDAO = orderDAO;
     }
 
-    @GetMapping(value = "/order/all")
+    @GetMapping(value = "/all")
     public List<Order> getAllCategories() {
         return orderDAO.getAll();
     }
 
-    @GetMapping(value = "/order/{id}")
+    @GetMapping(value = "/{id}")
     public Order getOrder(@PathVariable final Long id) {
         return orderDAO.getById(id);
     }
 
-    @PutMapping(value = "/order/{id}")
+    @PutMapping(value = "/{id}")
     public Order editOrder(@RequestBody Order editOrder, @PathVariable Long id) throws Exception {
 
         return orderDAO.getByIdOptional(id)
@@ -39,12 +40,12 @@ public class OrderController {
                         "No order found with id " + id + "\""));
     }
 
-    @PutMapping(value = "/order")
+    @PutMapping(value = "new")
     public Order addOrder(@RequestBody Order newOrder) {
         return orderDAO.addOrder(newOrder);
     }
 
-    @DeleteMapping("/order/{id}")
+    @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
         orderDAO.deleteByOrderId(id);
     }

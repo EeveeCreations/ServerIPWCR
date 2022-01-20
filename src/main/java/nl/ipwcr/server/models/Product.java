@@ -11,31 +11,30 @@ public class Product {
     private long productNumber;
     private String name;
     private String description;
-    private int price;
+    private double price;
     private String category;
     private String imagePath;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "storage")
-    private Storage storage;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "storage")
+//    private Storage storage;
 
     public Product(long productNumber, String name, String description,
-                   int price, String category, String imagePath, Storage storage) {
+                   double price, String category, String imagePath) {
         this.productNumber = productNumber;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.imagePath = imagePath;
-        this.storage = storage;
+//        this.storage = storage;
     }
 
-    public Product(String name, String description, int price, String category, String imagePath, Storage storage) {
+    public Product(String name, String description, double price, String category, String imagePath) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.imagePath = imagePath;
-        this.storage = storage;
     }
 
     public Product() {
@@ -65,11 +64,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -89,11 +88,4 @@ public class Product {
         this.imagePath = imagePath;
     }
 
-    public Storage getStorage() {
-        return storage;
-    }
-
-    public void setStorage(Storage storage) {
-        this.storage = storage;
-    }
 }

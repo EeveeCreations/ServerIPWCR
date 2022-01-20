@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/storage")
 @RestController
 public class StorageController {
     @Autowired
@@ -16,23 +17,23 @@ public class StorageController {
         this.storageDAO = storageDAO;
     }
 
-    @GetMapping(value = "/storage/all")
+    @GetMapping(value = "/all")
     public List<Storage> getAllCategories() {
         return storageDAO.getAll();
     }
 
-    @GetMapping(value = "/storage/{id}")
+    @GetMapping(value = "/{id}")
     public Storage getStorage(@PathVariable final Long id) {
         return storageDAO.getById(id);
     }
 
-    @PutMapping(value = "/storage/{id}")
+    @PutMapping(value = "/{id}")
     public Storage editStorage(@RequestBody Storage editStorage, @PathVariable Long id) throws Exception {
 
         return storageDAO.getByIdOptional(id)
                 .map(storage -> {
                     storage.setAmount(editStorage.getAmount());
-                    storage.setProduct(editStorage.getProduct());
+//                    storage.setProduct(editStorage.getProduct());
                     storage.setSoldOut(editStorage.isSoldOut());
 
                     return storageDAO.addStorage(storage);
@@ -41,12 +42,12 @@ public class StorageController {
                         "No storage found with id " + id + "\""));
     }
 
-    @PutMapping(value = "/storage")
+    @PutMapping(value = "new")
     public Storage addStorage(@RequestBody Storage newStorage) {
         return storageDAO.addStorage(newStorage);
     }
 
-    @DeleteMapping("/storage/{id}")
+    @DeleteMapping("/{id}")
     public void deleteStorage(@PathVariable Long id) {
         storageDAO.deleteByStorageId(id);
     }
