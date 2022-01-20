@@ -4,8 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import nl.ipwcr.server.models.UserRole;
-import nl.ipwcr.server.models.WebUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,6 +26,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
+@CrossOrigin("http://localhost:4200")
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public static final String HASHED_ALOGORITHEM = "EeveeCreation";
     private final int MINUTES_OF_VALIDATION = 10;
@@ -77,9 +77,16 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .sign(algorithm);
 
         Map<String,String> tokens = new HashMap<>();
-        tokens.put("accessToken",accessToken);
-        tokens.put("refreshToken",RefreshToken);
+        tokens.put("name", user.getUsername());
+        tokens.put("roles", user.getAuthorities().toString());
+        tokens.put("accessToken", accessToken);
+        tokens.put("refreshToken", RefreshToken);
         response.setContentType(APPLICATION_JSON_VALUE);
+        response.addHeader(
+                "Access-Control-Allow-Origin", "http://localhost:4200");
+        response.addHeader(
+                "Access-Control-Allow-Methods", "GET,POST,DELETE,PUT");
+
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }

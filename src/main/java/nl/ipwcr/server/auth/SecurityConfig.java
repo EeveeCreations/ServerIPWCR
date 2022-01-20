@@ -16,10 +16,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -36,6 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
         httpSecurity.csrf().disable();
+//        httpSecurity.authorizeRequests()
+//                .antMatchers("/**")
+//                .access("hasIpAddress('127.0.0.1') or hasIpAddress('::1')");// 127.0.0.1 and localhost allow LocalHost
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         setNeededAuthorisation(httpSecurity);
         httpSecurity.addFilter(authenticationFilter);
@@ -45,12 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private void setNeededAuthorisation(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/login").permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/auth/register").permitAll();
-//        httpSecurity.authorizeRequests().antMatchers("/auth/token/refresh/**").permitAll();
-//        httpSecurity.authorizeRequests().antMatchers("/auth/all").hasAnyAuthority("ADMIN");
+        httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/product/all").permitAll();
 
+        httpSecurity.authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ADMIN");
         httpSecurity.authorizeRequests().antMatchers("/product/**").hasAnyAuthority("ADMIN");
         httpSecurity.authorizeRequests().antMatchers("/order/**").hasAnyAuthority("ADMIN");
         httpSecurity.authorizeRequests().antMatchers("/cart/**").hasAnyAuthority("ADMIN");

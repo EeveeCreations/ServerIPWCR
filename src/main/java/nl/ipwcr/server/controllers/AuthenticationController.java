@@ -33,15 +33,16 @@ public class AuthenticationController {
 
     private static final int MINUTES_OF_VALIDATION = 10;
     private static final int A_MINUTE = 60;
-    private static final int MILISECONDS_TO_SECONDS = 1000;
+    private static final int MILLISECONDS_TO_SECONDS = 1000;
 
     @Autowired
     private WebUserDAO webUserDAO;
 
-//    @PostMapping("/login")
-//    public String loginWithNameAndPassword(@RequestBody String username, @RequestBody String password) {
-//        return "token";
-//    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/login")
+    public String loginWithNameAndPassword(@RequestBody String username, @RequestBody String password) {
+        return "token";
+    }
 
     @PutMapping(value = "/register")
     public WebUser addUser(@RequestBody WebUser newWebUser) {
@@ -65,7 +66,7 @@ public class AuthenticationController {
                 WebUser user = webUserDAO.getByName(userName);
                 String accessToken = JWT.create()
                         .withSubject(user.getName())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + MINUTES_OF_VALIDATION * A_MINUTE * MILISECONDS_TO_SECONDS))
+                        .withExpiresAt(new Date(System.currentTimeMillis() + MINUTES_OF_VALIDATION * A_MINUTE * MILLISECONDS_TO_SECONDS))
                         .withClaim("roles", user
                                 .getRoles()
                                 .stream()
@@ -73,6 +74,11 @@ public class AuthenticationController {
                                 .collect(Collectors.toList()))
                         .sign(algorithm);
                 Map<String, String> tokens = new HashMap<>();
+                tokens.put("id", user.getId().toString());
+                tokens.put("name", user.getName());
+                tokens.put("email", user.getEmail());
+                tokens.put("passcode", user.getPasscode());
+                tokens.put("roles", user.getRoles().toString());
                 tokens.put("accessToken", accessToken);
                 tokens.put("refreshToken", RefreshToken);
                 response.setContentType(APPLICATION_JSON_VALUE);
@@ -81,13 +87,11 @@ public class AuthenticationController {
 //                    TODO: Costumise
                 response.setHeader("error", exception.getMessage());
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-//                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 Map<String, String> error = new HashMap<>();
                 error.put("error_message", exception.getMessage());
                 response.setContentType(APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), error);
             }
-//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFZXZlZTIiLCJyb2xlcyI6W10sImV4cCI6MTY0MjQyNTkyMH0.LVhP-1U4Y5lapkNuGrKsMSri3BUJNwr_jd7qOvoMo5Y
         } else {
             filterChain.doFilter(request, response);
         }

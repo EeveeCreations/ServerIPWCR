@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/product")
 @RestController
 public class ProductController {
     @Autowired
@@ -16,17 +17,17 @@ public class ProductController {
         this.productDAO = productDAO;
     }
 
-    @GetMapping(value = "/product/all")
+    @GetMapping(value = "/all")
     public List<Product> getAllCategories() {
         return productDAO.getAll();
     }
 
-    @GetMapping(value = "/product/{id}")
+    @GetMapping(value = "/{id}")
     public Product getProduct(@PathVariable final Long id) {
         return productDAO.getById(id);
     }
 
-    @PutMapping(value = "/product/{id}")
+    @PutMapping(value = "/{id}")
     public Product editProduct(@RequestBody Product editProduct, @PathVariable Long id) throws Exception {
 
         return productDAO.getByIdOptional(id)
@@ -43,12 +44,12 @@ public class ProductController {
                         "No product found with id " + id + "\""));
     }
 
-    @PutMapping(value = "/product")
+    @PutMapping(value = "/new")
     public Product addProduct(@RequestBody Product newProduct) {
         return productDAO.addProduct(newProduct);
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productDAO.deleteByProductId(id);
     }
