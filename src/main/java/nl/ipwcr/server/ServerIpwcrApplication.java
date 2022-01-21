@@ -23,6 +23,8 @@ public class ServerIpwcrApplication extends SpringBootServletInitializer {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("https://eeveecreations.github.io");
                 registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+                registry.addMapping("/**").allowedOrigins("https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR");
+
 
             }
         };

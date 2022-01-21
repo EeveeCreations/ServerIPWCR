@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = {"http://localhost:4200","https://eeveecreations.github.io"})
+@CrossOrigin(origins = {"http://localhost:4200",
+        "https://eeveecreations.github.io",
+        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
 @RestController
 public class CartController {
     @Autowired

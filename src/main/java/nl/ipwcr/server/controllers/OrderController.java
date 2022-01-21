@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = {"http://localhost:4200","https://eeveecreations.github.io"})
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https://eeveecreations.github.io",
+        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
+
 @RequestMapping("/order")
 @RestController
 public class OrderController {
@@ -40,7 +44,7 @@ public class OrderController {
                         "No order found with id " + id + "\""));
     }
 
-    @PutMapping(value = "new")
+    @PutMapping(value = "/new")
     public Order addOrder(@RequestBody Order newOrder) {
         return orderDAO.addOrder(newOrder);
     }

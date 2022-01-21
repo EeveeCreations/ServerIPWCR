@@ -27,6 +27,9 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200",
+        "https://eeveecreations.github.io",
+        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
 public class AuthenticationController {
 
     private static final int MINUTES_OF_VALIDATION = 10;
