@@ -38,12 +38,6 @@ public class AuthenticationController {
     @Autowired
     private WebUserDAO webUserDAO;
 
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @PostMapping("/login")
-//    public String loginWithNameAndPassword(@RequestBody String username, @RequestBody String password) {
-//        return "token";
-//    }
-
     @PutMapping(value = "/register")
     public WebUser addUser(@RequestBody WebUser newWebUser) {
         return webUserDAO.addUser(newWebUser);

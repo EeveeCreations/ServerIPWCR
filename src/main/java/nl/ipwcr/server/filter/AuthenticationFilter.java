@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +24,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-@Slf4j
+
+
 @CrossOrigin("http://localhost:4200")
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public static final String HASHED_ALOGORITHEM = "EeveeCreation";
@@ -46,7 +46,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse response) throws AuthenticationException {
         String userName = request.getParameter("username");
         String password = request.getParameter("passcode");
-        log.info("Username - {} password - {}",userName,password);
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userName, password);
         return this.authenticationManager.authenticate(authenticationToken);

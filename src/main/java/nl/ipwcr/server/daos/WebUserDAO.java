@@ -1,6 +1,5 @@
 package nl.ipwcr.server.daos;
 
-import lombok.extern.slf4j.Slf4j;
 import nl.ipwcr.server.models.UserRole;
 import nl.ipwcr.server.models.WebUser;
 import nl.ipwcr.server.repositorys.UserRoleRepository;
@@ -19,7 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 
 @Component
-@Slf4j
 public class WebUserDAO implements UserDetailsService, UserServices {
 
     @Autowired
@@ -40,8 +38,7 @@ public class WebUserDAO implements UserDetailsService, UserServices {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         WebUser user = webUserRepository.findByName(username);
         if (user == null) {
-            log.error("User not found");
-            throw new UsernameNotFoundException("USer not found in DB");
+            throw new UsernameNotFoundException("User not found in DB");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(userRole -> {

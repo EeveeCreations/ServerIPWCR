@@ -33,17 +33,5 @@ public class ServerIpwcrApplication extends SpringBootServletInitializer {
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    @Bean
-//    CommandLineRunner runner(UserServices userServices){
-//        return args -> {
-////            userServices.addUser(new WebUser("Eevee","s1126086@student.hsleiden.nl","root112",null));
-////            userServices.addRoleToUser(4L,1L);
-////            userServices.addRoleToUser(4L,2L);
-////            userServices.addRoleToUser(4L,3L);
-//
-//
-////            userServices.addRole(new UserRole(null,"OWNER"));
-////            userServices.addRole(new UserRole(null,"HACKER"));
-//        };
-//    }
+
 }
