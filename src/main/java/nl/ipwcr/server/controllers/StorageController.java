@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"
+        ,"https://eeveecreations.github.io",
+        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
+
 @RequestMapping("/storage")
 @RestController
 public class StorageController {
@@ -42,7 +45,7 @@ public class StorageController {
                         "No storage found with id " + id + "\""));
     }
 
-    @PutMapping(value = "new")
+    @PostMapping(value = "new")
     public Storage addStorage(@RequestBody Storage newStorage) {
         return storageDAO.addStorage(newStorage);
     }

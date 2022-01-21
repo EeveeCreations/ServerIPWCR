@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","https://eeveecreations.github.io", "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -47,16 +47,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private void setNeededAuthorisation(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests().antMatchers("/**").permitAll();
+
         httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/product/all").permitAll();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/order/new").permitAll();
 
-        httpSecurity.authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers("/product/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers("/order/**").hasAnyAuthority("ADMIN");
-        httpSecurity.authorizeRequests().antMatchers("/cart/**").hasAnyAuthority("ADMIN");
+//        httpSecurity.authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ADMIN");
+//        httpSecurity.authorizeRequests().antMatchers("/product/**").hasAnyAuthority("ADMIN");
+//        httpSecurity.authorizeRequests().antMatchers("/order/**").hasAnyAuthority("ADMIN");
+//        httpSecurity.authorizeRequests().antMatchers("/cart/**").hasAnyAuthority("ADMIN");
 
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/order/{id}").hasAnyAuthority("CLIENT");
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/cart/**").hasAnyAuthority("CLIENT");
     }
 
     @Bean

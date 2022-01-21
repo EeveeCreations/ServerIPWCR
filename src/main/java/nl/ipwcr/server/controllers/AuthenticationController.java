@@ -26,9 +26,10 @@ import static nl.ipwcr.server.filter.AuthenticationFilter.HASHED_ALOGORITHEM;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/auth")
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200",
+        "https://eeveecreations.github.io",
+        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
 public class AuthenticationController {
 
     private static final int MINUTES_OF_VALIDATION = 10;
@@ -38,7 +39,7 @@ public class AuthenticationController {
     @Autowired
     private WebUserDAO webUserDAO;
 
-    @PutMapping(value = "/register")
+    @PostMapping(value = "/register")
     public WebUser addUser(@RequestBody WebUser newWebUser) {
         return webUserDAO.addUser(newWebUser);
     }
@@ -75,11 +76,10 @@ public class AuthenticationController {
                 tokens.put("roles", user.getRoles().toString());
                 tokens.put("accessToken", accessToken);
                 tokens.put("refreshToken", RefreshToken);
-                response.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
+                response.setHeader("Access-Control-Allow-Origin","http://localhost4200");
                 response.setContentType(APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
             } catch (Exception exception) {
-//                    TODO: Customise
                 response.setHeader("error", exception.getMessage());
                 response.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
