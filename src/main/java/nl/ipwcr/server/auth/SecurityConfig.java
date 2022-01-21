@@ -38,9 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
         httpSecurity.csrf().disable();
-//        httpSecurity.authorizeRequests()
-//                .antMatchers("/**")
-//                .access("hasIpAddress('127.0.0.1') or hasIpAddress('::1')");// 127.0.0.1 and localhost allow LocalHost
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         setNeededAuthorisation(httpSecurity);
         httpSecurity.addFilter(authenticationFilter);

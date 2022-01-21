@@ -52,6 +52,8 @@ public class AuthorisationFilter extends OncePerRequestFilter {
                     stream(roles).forEach(role -> {
                         authorities.add(new SimpleGrantedAuthority(role));
                     });
+                    response.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
+                    response.setStatus(200);
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userName, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
@@ -59,6 +61,7 @@ public class AuthorisationFilter extends OncePerRequestFilter {
                     log.error("there was an error: {}", exception.getMessage());
 //                    TODO: Costumise
                     response.setHeader("error", exception.getMessage());
+                    response.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     Map<String, String> error = new HashMap<>();
                     error.put("error_message", exception.getMessage());

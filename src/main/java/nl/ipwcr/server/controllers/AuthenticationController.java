@@ -38,11 +38,11 @@ public class AuthenticationController {
     @Autowired
     private WebUserDAO webUserDAO;
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/login")
-    public String loginWithNameAndPassword(@RequestBody String username, @RequestBody String password) {
-        return "token";
-    }
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @PostMapping("/login")
+//    public String loginWithNameAndPassword(@RequestBody String username, @RequestBody String password) {
+//        return "token";
+//    }
 
     @PutMapping(value = "/register")
     public WebUser addUser(@RequestBody WebUser newWebUser) {
@@ -81,11 +81,13 @@ public class AuthenticationController {
                 tokens.put("roles", user.getRoles().toString());
                 tokens.put("accessToken", accessToken);
                 tokens.put("refreshToken", RefreshToken);
+                response.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
                 response.setContentType(APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
             } catch (Exception exception) {
-//                    TODO: Costumise
+//                    TODO: Customise
                 response.setHeader("error", exception.getMessage());
+                response.setHeader("Access-Control-Allow-Origin","http://localhost:4200");
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 Map<String, String> error = new HashMap<>();
                 error.put("error_message", exception.getMessage());

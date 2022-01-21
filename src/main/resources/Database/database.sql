@@ -32,13 +32,21 @@ INSERT INTO storage(product_nr,amount,sold_out) VALUES(43,23,false);
 --cartItems
 INSERT INTO cart_item(amount,cart_cart_nr,product_product_nr) VALUES(1,1,46);
 INSERT INTO cart_item(amount,cart_cart_nr,product_product_nr) VALUES(1,1,43);
+INSERT INTO cart_item(amount,cart_cart_nr,product_product_nr) VALUES(1,1,63);
+INSERT INTO cart_item(amount,cart_cart_nr,product_product_nr) VALUES(1,2,38);
+INSERT INTO cart_item(amount,cart_cart_nr,product_product_nr) VALUES(1,2,42);
+INSERT INTO cart_item(amount,cart_cart_nr,product_product_nr) VALUES(1,2,40);
+INSERT INTO cart_item(amount,cart_cart_nr,product_product_nr) VALUES(1,2,34);
 
 
 --Cart
 INSERT INTO cart(amount_of_products,total_price,ordered) VALUES(1,35,false);
+INSERT INTO cart(amount_of_products,total_price,ordered) VALUES(5,35,false);
 
 --Order
 INSERT INTO public.order(completed,cart) VALUES(false,1);
+INSERT INTO public.order(completed,cart) VALUES(false,1);
+
 
 --webUser
 INSERT INTO webUser(id,name,passcode,admin) VALUES(1,'Eevee','7004',true);
