@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","https://eeveecreations.github.io"})
 @RequestMapping("/user")
 @RestController
 public class UserController {
@@ -17,7 +17,6 @@ public class UserController {
     public UserController(WebUserDAO webUserDAO) {
         this.webUserDAO = webUserDAO;
     }
-
 
     @GetMapping(value = "/all")
     public List<WebUser> getAllWebUsers() {
