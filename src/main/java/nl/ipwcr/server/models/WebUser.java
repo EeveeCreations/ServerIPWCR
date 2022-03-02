@@ -13,7 +13,7 @@ public class WebUser {
     private String name;
     private String email;
     private String passcode;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<UserRole> roles = new ArrayList<>();
 
     public WebUser(Long id, String name, String email, String passcode, Collection<UserRole> roles) {

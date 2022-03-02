@@ -9,13 +9,13 @@ public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "role_name")
-    private String roleName;
+    @Column(name = "role")
+    private String role;
 
 
-    public UserRole(Long id, String roleName) {
+    public UserRole(Long id, String role) {
         this.id = id;
-        this.roleName = roleName;
+        this.role = role;
     }
 
     public UserRole() {
@@ -29,11 +29,11 @@ public class UserRole {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

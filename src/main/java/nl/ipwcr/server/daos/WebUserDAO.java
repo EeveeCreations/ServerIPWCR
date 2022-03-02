@@ -42,7 +42,7 @@ public class WebUserDAO implements UserDetailsService, UserServices {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(userRole -> {
-            authorities.add(new SimpleGrantedAuthority(userRole.getRoleName()));
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
 
         });
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPasscode(), authorities);
