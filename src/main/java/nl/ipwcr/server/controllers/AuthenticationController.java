@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import nl.ipwcr.server.daos.WebUserDAO;
 import nl.ipwcr.server.models.UserRole;
 import nl.ipwcr.server.models.WebUser;
+import nl.ipwcr.server.models.NewWebUser;
 import nl.ipwcr.server.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,15 +16,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @CrossOrigin(origins = {
+        "*",
         "http://localhost:4200",
         "https://eeveecreations.github.io",
-        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
+        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/"})
 @AllArgsConstructor
 public class AuthenticationController {
 
@@ -34,10 +37,15 @@ public class AuthenticationController {
     private final TokenService tokenService;
 
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/register", produces = "application/json")
     public WebUser addUser(@RequestBody WebUser newWebUser) {
+        int i = 0;
         for (UserRole userRole : newWebUser.getRoles()) {
-            webUserDAO.addRoleToUser(newWebUser.getId(),userRole.getId());
+            webUserDAO.addRoleToUser(newWebUser.getId(), (long) i);
+            i++;
+        }
+        if(newWebUser.getRoles().size() == 2){
+            webUserDAO.addRoleToUser(newWebUser.getId(),(long) 2);
         }
         return webUserDAO.addUser(newWebUser);
     }

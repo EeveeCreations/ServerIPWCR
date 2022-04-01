@@ -28,10 +28,10 @@ public class AuthorisationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+//        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
         response.setContentType(APPLICATION_JSON_VALUE);
         if (request.getServletPath().equals("/login") ||
-                request.getServletPath().equals("refresh") ||
+                request.getServletPath().equals("/refresh") ||
                 request.getServletPath().equals("/register") ||
                 (request.getServletPath().startsWith("/order/new") && request.getMethod().equals("GET")) ||
                 (request.getServletPath().startsWith("/product/all") && request.getMethod().equals("GET")) ||

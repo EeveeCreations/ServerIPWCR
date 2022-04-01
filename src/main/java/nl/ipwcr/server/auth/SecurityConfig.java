@@ -29,6 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private final UserDetailsService userDetailsService;
 
+    public static final String[] Unsecured_URLS = {
+            "/register",
+            "/login",
+            "/refresh"
+    };
+
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
@@ -39,22 +45,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
-        httpSecurity.csrf();
+        httpSecurity.csrf().disable();
         httpSecurity.cors();
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         setNeededAuthorisation(httpSecurity);
-        httpSecurity.addFilter(authenticationFilter);
         httpSecurity.addFilterBefore(new AuthorisationFilter(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilter(authenticationFilter);
     }
 
     private void setNeededAuthorisation(HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity.authorizeRequests().antMatchers(Unsecured_URLS).permitAll().and().authorizeRequests();
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/register").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/login").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/refresh").permitAll();
 
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/product/all").permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/order/new").hasAnyAuthority("CLIENT");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/order/new").permitAll();
 
         httpSecurity.authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ADMIN");
         httpSecurity.authorizeRequests().antMatchers("/product/**").hasAnyAuthority("ADMIN");
