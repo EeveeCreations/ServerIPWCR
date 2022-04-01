@@ -13,9 +13,15 @@ public class WebUser {
     private String name;
     private String email;
     private String passcode;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<UserRole> roles = new ArrayList<>();
 
+    public WebUser(String name, String email, String passcode, Collection<UserRole> roles) {
+        this.name = name;
+        this.email = email;
+        this.passcode = passcode;
+        this.roles = roles;
+    }
     public WebUser(Long id, String name, String email, String passcode, Collection<UserRole> roles) {
         this.id = id;
         this.name = name;
@@ -24,12 +30,7 @@ public class WebUser {
         this.roles = roles;
     }
 
-    public WebUser(String name, String email, String passcode, Collection<UserRole> roles) {
-        this.name = name;
-        this.email = email;
-        this.passcode = passcode;
-        this.roles = roles;
-    }
+
 
     public WebUser() {
     }

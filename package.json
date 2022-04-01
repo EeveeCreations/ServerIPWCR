@@ -1,0 +1,7 @@
+{
+  "name": "ServerIPWCR",
+  "version": "1.0.0",
+  "dependencies": {
+    "heroku": "^7.59.3"
+  }
+}

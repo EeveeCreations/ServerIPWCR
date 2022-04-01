@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200",
-        "https://eeveecreations.github.io",
-        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
+@CrossOrigin(origins = {"*"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -31,27 +29,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private final UserDetailsService userDetailsService;
 
+    public static final String[] Unsecured_URLS = {
+            "/register",
+            "/login",
+            "/refresh"
+    };
+
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
         httpSecurity.csrf().disable();
+        httpSecurity.cors();
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         setNeededAuthorisation(httpSecurity);
-        httpSecurity.addFilter(authenticationFilter);
         httpSecurity.addFilterBefore(new AuthorisationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-
+        httpSecurity.addFilter(authenticationFilter);
     }
 
     private void setNeededAuthorisation(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.authorizeRequests().antMatchers("/**").permitAll();
 
-        httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll();
+        httpSecurity.authorizeRequests().antMatchers(Unsecured_URLS).permitAll().and().authorizeRequests();
+
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/register").permitAll();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/login").permitAll();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST,"/refresh").permitAll();
+
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/product/all").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/order/new").permitAll();
 

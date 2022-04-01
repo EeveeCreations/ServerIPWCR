@@ -9,7 +9,7 @@ import java.util.*;
 
 @CrossOrigin(origins = {"http://localhost:4200",
         "https://eeveecreations.github.io",
-        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/one-piece-shop-IPWCR"})
+        "https://one-piece-shop-ipwcr-jpwbr.ondigitalocean.app/"})
 
 @RequestMapping("/user")
 @RestController
