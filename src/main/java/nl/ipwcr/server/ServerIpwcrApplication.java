@@ -55,9 +55,8 @@ public class ServerIpwcrApplication extends SpringBootServletInitializer {
     CommandLineRunner runner(UserServices userServices) {
         return args -> {
 //            userServices.addUser(new WebUser("Eevee", "s1126086@student.hsleiden.nl", "61073dc17471eff9150af425dda63c8f72d34a7076378615c76cb7da390af372", null));
-            userServices.addRoleToUser(1L, 0L);
-            userServices.addRoleToUser(1L, 1L);
-
+//            userServices.addRoleToUser(1L, 0L);
+//            userServices.addRoleToUser(1L, 1L);
 //            userServices.addRole(new UserRole(null, "ADMIN"));
 //            userServices.addRole(new UserRole(null, "CLIENT"));
         };
