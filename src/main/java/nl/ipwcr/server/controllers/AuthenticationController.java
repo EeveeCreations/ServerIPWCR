@@ -37,14 +37,6 @@ public class AuthenticationController {
 
     @PostMapping(value = "/register", produces = "application/json")
     public WebUser addUser(@RequestBody WebUser newWebUser) {
-        int i = 0;
-        for (UserRole userRole : newWebUser.getRoles()) {
-            webUserDAO.addRoleToUser(newWebUser.getId(), (long) i);
-            i++;
-        }
-        if(newWebUser.getRoles().size() == 2){
-            webUserDAO.addRoleToUser(newWebUser.getId(),(long) 2);
-        }
         return webUserDAO.addUser(newWebUser);
     }
 
