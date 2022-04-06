@@ -37,6 +37,9 @@ public class AuthenticationController {
 
     @PostMapping(value = "/register", produces = "application/json")
     public WebUser addUser(@RequestBody WebUser newWebUser) {
+        for(UserRole role: newWebUser.getRoles()){
+            role.setRole("CLIENT");
+        }
         return webUserDAO.addUser(newWebUser);
     }
 
