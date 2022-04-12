@@ -44,7 +44,7 @@ public class OrderController {
                         "No order found with id " + id + "\""));
     }
 
-    @PutMapping(value = "/new")
+    @PostMapping(value = "/new")
     public Order addOrder(@RequestBody Order newOrder) {
         return orderDAO.addOrder(newOrder);
     }

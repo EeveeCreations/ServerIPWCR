@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +48,7 @@ public class AuthorisationFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userName, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    filterChain.doFilter(request, response);
                 } catch (Exception exception) {
                     response.setHeader("error", exception.getMessage());
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -56,7 +56,6 @@ public class AuthorisationFilter extends OncePerRequestFilter {
                     error.put("error_message", exception.getMessage());
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
                 }
-
             } else {
                 filterChain.doFilter(request, response);
             }
